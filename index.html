@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <style type="text/css">
+    .modal_wrapper {
+      display: none;
+    }
+
+    .modal_inner {
+      position: absolute;
+      height: auto;
+    }
+
+    .mod_close {
+      position: absolute;
+      top: 50px;
+      right: 5%;
+      z-index: 999999;
+      background: #fff;
+      display: none;
+      padding: 5px 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-family: "Arial", sans-serif;
+    }
+
+    iframe {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+
+    .modal_inner iframe,
+    .modal_wrapper,
+    .modal_inner {
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .modal_wrapper.active {
+      opacity: 1;
+      z-index: 99;
+      position: fixed;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <button onclick="playvideo()">Watch Video</button>
+
+  <main class="modal_wrapper">
+    <div class="modal_inner">
+      <span class="mod_close">x</span>
+    </div>
+  </main>
+
+  <script>
+    const modwrapper = document.getElementsByClassName("modal_wrapper")[0];
+    const mod_close = document.getElementsByClassName('mod_close')[0];
+    const modinner = document.getElementsByClassName('modal_inner')[0]
+
+    function playvideo() {
+      modwrapper.classList.add('active');
+      mod_close.style.display = 'block';
+
+      let iframe = document.createElement('iframe')
+      iframe.setAttribute('src', "https://www.youtube.com/embed/1RFiFjG7Eh4?&autoplay=1&rel=0")
+      iframe.setAttribute('frameborder', '0')
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share')
+      iframe.setAttribute('allowfullscreen', '0')
+      iframe.classList.add('modal_vid')
+      modinner.append(iframe)
+    }
+
+    mod_close.addEventListener("click", () => {
+      const modalvid = document.getElementsByClassName("modal_vid")[0]
+      modwrapper.classList.remove('active');
+      mod_close.style.display = 'none';
+      modalvid.remove()
+    })
+  </script>
+
+</body>
+</html>
